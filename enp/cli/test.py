@@ -54,10 +54,13 @@ def all(
     results: Dict[Task, bool] = {task: task.run() for task in tasks if task.should_run}
     failed = {task for task, result in results.items() if result is False}
     if any(failed):
-        typer.echo(typer.style(f"Failed test tasks: {[f.name for f in failed]}", fg="red"))
+        typer.echo(
+            typer.style(f"Failed test tasks: {[f.name for f in failed]}", fg="red")
+        )
         raise typer.Exit(1)
     else:
         typer.echo(typer.style(f"All {len(results)} test tasks succeeded!", fg="green"))
+
 
 @app.command()
 def black(fix: bool = typer.Option(False, help="fix errors")):

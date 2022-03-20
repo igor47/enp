@@ -39,6 +39,12 @@ To get help:
 $ enp --help
 ```
 
+To run the dev server:
+
+```
+$ enp run dev
+```
+
 ## Tests
 
 The entry point for tests is the command `enp tests`.

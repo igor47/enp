@@ -20,4 +20,4 @@ def dev():
     import enp.server as srv
     server = srv.get_server()
 
-    server.run()
+    server.run(debug=True)

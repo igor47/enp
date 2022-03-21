@@ -1,6 +1,12 @@
+import io
 import json
+from typing import Any, Dict
+from functools import partial
 
 from flask import Blueprint, Response, request
+from reportlab.pdfgen import canvas
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
+from reportlab.lib.styles import getSampleStyleSheet
 
 
 api = Blueprint('api', __name__)
@@ -15,5 +21,17 @@ def print_numbers() -> Response:
             mimetype="application/json",
         )
 
-    params = request.get_json()
-    return Response(json.dumps(params), mimetype="application/json")
+    params: Dict[str, Any] = request.get_json()
+    numbers = params.get("numbers", [])
+    rows = [[str(idx + 1), num] for idx, num in enumerate(numbers)]
+
+    styles = getSampleStyleSheet()
+    title = Paragraph("Here are the numbers you have submitted.", styles["h2"])
+    table = Table(data=rows)
+
+    buffer = io.BytesIO()
+    pdf = SimpleDocTemplate(filename=buffer)
+    pdf.build([title, table])
+
+    buffer.seek(0)
+    return Response(buffer, mimetype="application/pdf")

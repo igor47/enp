@@ -1,5 +1,6 @@
 import io
 import json
+import time
 from typing import Any, Dict
 from functools import partial
 
@@ -41,4 +42,8 @@ def print_numbers() -> Response:
     pdf.build([title, table])
 
     buffer.seek(0)
-    return Response(buffer, mimetype="application/pdf")
+    return Response(
+        buffer,
+        mimetype="application/pdf",
+        headers={'Content-Disposition': f'attachment; filename=numbers{round(time.time())}.pdf'}
+    )

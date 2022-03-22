@@ -18,6 +18,7 @@ def main():
 def dev():
     """Runs all tasks in the test suite"""
     import enp.server as srv
+
     server = srv.get_server()
 
     server.run(debug=True)

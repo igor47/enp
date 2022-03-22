@@ -9,24 +9,27 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
 from reportlab.lib.styles import getSampleStyleSheet
 
 
-api = Blueprint('api', __name__)
+api = Blueprint("api", __name__)
+
 
 @api.route("/print_numbers", methods=["POST"])
 def print_numbers() -> Response:
     """Prints submitted numbers as a PDF"""
     if not request.is_json:
         return Response(
-            json.dumps({"error":f"JSON input expected; received '{request.mimetype}'"}),
+            json.dumps(
+                {"error": f"JSON input expected; received '{request.mimetype}'"}
+            ),
             status=406,
             mimetype="application/json",
         )
 
-    params: Dict[str, Any] = request.get_json()
+    params: Dict[str, Any] = request.get_json()  # type: ignore
     numbers = params.get("numbers", [])
     rows = [[str(idx + 1), num] for idx, num in enumerate(numbers)]
 
     styles = getSampleStyleSheet()
-    title = Paragraph("Here are the numbers you have submitted.", styles["h2"])
+    title = Paragraph("Here are the numbers you have submitted:", styles["h2"])
     table = Table(data=rows)
 
     buffer = io.BytesIO()

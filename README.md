@@ -3,6 +3,13 @@
 This repo contains a sample interview problem for Evergrow.
 It's a web app which accepts numbers from a user, and prints them as a PDF.
 
+There are a few interesting features about this app:
+* all local functionality is implemented as a typer app, including launching in dev/prod + builds + tests/linting
+* the backend is python and the front-end is a [Vue 3](https://vuejs.org/guide/introduction.html) SPA built via [Vite](https://vitejs.dev/guide/#overview)
+
+This was intended as a playground for me to learn Vue 3 and Vite.
+There's some complexity around dev env, where the Vite server provides hot module reloading, but has to proxy API requests back to the flask server.
+
 ## Setup
 
 The author uses `asdf` and `direnv` to manage this codebase.

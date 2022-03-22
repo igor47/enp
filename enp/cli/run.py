@@ -54,11 +54,11 @@ def build():
 
 
 @app.command()
-def prod():
+def prod(host: str = "0.0.0.0", port: int = 5000):
     """Production version of the flask server"""
     from enp.server import get_server
 
     server = get_server(prod=True)
 
     typer.echo("Starting flask dev server...")
-    server.run()
+    server.run(host=host, port=port)

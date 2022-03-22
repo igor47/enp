@@ -11,7 +11,9 @@ def get_server(prod: bool = False) -> flask.Flask:
     # static routes only exist in prod mode
     if prod:
         server.add_url_rule(
-            "/", endpoint="index", view_func=lambda: flask.send_file(settings.INDEX_PATH)
+            "/",
+            endpoint="index",
+            view_func=lambda: flask.send_file(settings.INDEX_PATH),
         )
 
     server.register_blueprint(api, url_prefix="/api")

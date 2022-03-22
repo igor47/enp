@@ -17,6 +17,7 @@ api = Blueprint("api", __name__)
 def health() -> str:
     return "OK"
 
+
 @api.route("/print_numbers", methods=["POST"])
 def print_numbers() -> Response:
     """Prints submitted numbers as a PDF"""
@@ -45,5 +46,7 @@ def print_numbers() -> Response:
     return Response(
         buffer,
         mimetype="application/pdf",
-        headers={'Content-Disposition': f'attachment; filename=numbers{round(time.time())}.pdf'}
+        headers={
+            "Content-Disposition": f"attachment; filename=numbers{round(time.time())}.pdf"
+        },
     )

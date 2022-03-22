@@ -21,10 +21,12 @@ def main():
 def flask():
     """runs the backend dev server"""
     from enp.server import get_server
+
     server = get_server()
 
     typer.echo("Starting flask dev server...")
     server.run(debug=True)
+
 
 @app.command()
 def dev():
@@ -44,18 +46,19 @@ def dev():
             exit_code = vite_process.proc.wait(timeout=1)
             typer.echo(f"Vite exited with code {exit_code}")
 
+
 @app.command()
 def build():
     """Runs the vite build process to produce finished build artifact"""
     local["npm"]["exec", "vite", "build"] & FG
 
+
 @app.command()
 def prod():
     """Production version of the flask server"""
     from enp.server import get_server
-    server = get_server(prod = True)
+
+    server = get_server(prod=True)
 
     typer.echo("Starting flask dev server...")
     server.run()
-
-

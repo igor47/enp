@@ -12,6 +12,10 @@ from reportlab.lib.styles import getSampleStyleSheet
 api = Blueprint("api", __name__)
 
 
+@api.route("/health")
+def health() -> str:
+    return "OK"
+
 @api.route("/print_numbers", methods=["POST"])
 def print_numbers() -> Response:
     """Prints submitted numbers as a PDF"""
